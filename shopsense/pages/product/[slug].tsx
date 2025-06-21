@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import mongoose from "mongoose";
-import Product from '@/models/Product'
+import Product from "@/models/Product";
 
-const Slug = (products,variants) => {
-  console.log(products,variants)
+const Slug = (products, variants) => {
+  console.log(products, variants);
+  let colors = Object.keys(products.variants);
+  let [selectedcolor, setSelectedcolor] = useState(colors[0]);
+  let sizes = Object.keys(products?.variants?.[selectedcolor]);
+  console.log(sizes);
   const [pin, setPin] = useState();
   const [service, setService] = useState();
   const router = useRouter();
@@ -29,17 +33,16 @@ const Slug = (products,variants) => {
         <div className="container px-5 py-24 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
             <img
-            
               alt="ecommerce"
               className="m-auto lg:w-1/2 w-full lg:h-96 object-contain object-center rounded"
               src={products.product.img}
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">
-              {products.product.title}
+                {products.product.title}
               </h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-              {products.product.desc}
+                {products.product.desc}
               </h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
@@ -149,21 +152,39 @@ const Slug = (products,variants) => {
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
                 <div className="flex">
                   <span className="mr-3">Color</span>
-                  <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:border-black"></button>
+                  {colors?.map((color) => (
+                    <>
+                      <button
+                        className={`border-2  ml-1 bg-${color}-700 rounded-full w-6 h-6  ${
+                          selectedcolor === color
+                            ? "border-gray-100"
+                            : "border-gray-500"
+                        }`}
+                        onClick={() => {
+                          setSelectedcolor(color);
+                          console.log(color);
+                        }}
+                      ></button>
+                    </>
+                  ))}
+                  {/* <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:border-black"></button>
                   <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6  focus:border-black"></button>
                   <button className="border-2 border-gray-300 ml-1 bg-indigo-500 rounded-full w-6 h-6  focus:border-black"></button>
                   <button className="border-2 border-gray-300 ml-1 bg-yellow-500 rounded-full w-6 h-6  focus:border-black"></button>
                   <button className="border-2 border-gray-300 ml-1 bg-red-500 rounded-full w-6 h-6  focus:border-black"></button>
-                  <button className="border-2 border-gray-300 ml-1 bg-green-500 rounded-full w-6 h-6  focus:border-black"></button>
+                  <button className="border-2 border-gray-300 ml-1 bg-green-500 rounded-full w-6 h-6  focus:border-black"></button> */}
                 </div>
                 <div className="flex ml-12 items-center ">
                   <span className="mr-3">Size</span>
                   <div className="relative">
                     <select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
-                      <option>SM</option>
+                      {sizes.map((size) => (
+                        <option>{size}</option>
+                      ))}
+                      {/*
                       <option>M</option>
                       <option>L</option>
-                      <option>XL</option>
+                      <option>XL</option> */}
                     </select>
                     <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                       <svg
@@ -258,27 +279,28 @@ const Slug = (products,variants) => {
   );
 };
 
-export const getServerSideProps = (async (context:any) => {
-
-  if(!mongoose.connections[0].readyState){
-    await mongoose.connect(process.env.MONGO_URI)
+export const getServerSideProps = async (context: any) => {
+  if (!mongoose.connections[0].readyState) {
+    await mongoose.connect(process.env.MONGO_URI);
   }
-  const products = await Product.findOne({slug:context.query.slug})
-let variants = await Product.find({title:products.title})
-let colorSizeSlug = {} //{red:{xl:{slug:"any name"}}}
-for(let item of variants){
-if(Object.keys(colorSizeSlug).includes(item.color)){
-  colorSizeSlug[item.color][item.size] = {slug:item.slug}
-}else{
-  colorSizeSlug[item.color] = {}
-  colorSizeSlug[item.color][item.size] = {slug:item.slug}
-}
+  const products = await Product.findOne({ slug: context.query.slug });
+  let variants = await Product.find({ title: products.title });
+  let colorSizeSlug = {}; //{red:{xl:{slug:"any name"}}}
+  for (let item of variants) {
+    if (Object.keys(colorSizeSlug).includes(item.color)) {
+      colorSizeSlug[item.color][item.size] = { slug: item.slug };
+    } else {
+      colorSizeSlug[item.color] = {};
+      colorSizeSlug[item.color][item.size] = { slug: item.slug };
+    }
+  }
 
-}
-  
-    return { props: { product: JSON.parse(JSON.stringify(products)),variants: JSON.parse(JSON.stringify(colorSizeSlug)) } }
-  })
-  
-
+  return {
+    props: {
+      product: JSON.parse(JSON.stringify(products)),
+      variants: JSON.parse(JSON.stringify(colorSizeSlug)),
+    },
+  };
+};
 
 export default Slug;
