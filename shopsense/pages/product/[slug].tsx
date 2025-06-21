@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import mongoose from "mongoose";
 import Product from "@/models/Product";
+import { ToastContainer, toast } from "react-toastify";
 
 const Slug = (props: any) => {
   let { product, variants, addToCart } = props;
@@ -19,8 +20,10 @@ const Slug = (props: any) => {
     let pinsJson = await pins.json();
     if (pinsJson.includes(parseInt(pin))) {
       setService(true);
+      toast.success("pincode is serviceable");
     } else {
       setService(false);
+      toast.error("opps! pincode not sericeable");
     }
   };
 
@@ -30,6 +33,7 @@ const Slug = (props: any) => {
 
   return (
     <div>
+      <ToastContainer />
       <section className="text-gray-600 body-font overflow-hidden">
         <div className="container px-5 py-24 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
