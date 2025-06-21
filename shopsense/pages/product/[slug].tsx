@@ -3,14 +3,14 @@ import { useRouter } from "next/router";
 import mongoose from "mongoose";
 import Product from "@/models/Product";
 
-const Slug = (products, variants) => {
+const Slug = (products: any, variants: any) => {
   console.log(products, variants);
   let colors = Object.keys(products.variants);
   let [selectedcolor, setSelectedcolor] = useState(colors[0]);
   let sizes = Object.keys(products?.variants?.[selectedcolor]);
   console.log(sizes);
-  const [pin, setPin] = useState();
-  const [service, setService] = useState();
+  const [pin, setPin]: any = useState();
+  const [service, setService]: any = useState();
   const router = useRouter();
   const { slug } = router.query;
   const checkServiceability = async () => {
@@ -152,9 +152,10 @@ const Slug = (products, variants) => {
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
                 <div className="flex">
                   <span className="mr-3">Color</span>
-                  {colors?.map((color) => (
+                  {colors?.map((color, index) => (
                     <>
                       <button
+                        key={index}
                         className={`border-2  ml-1 bg-${color}-700 rounded-full w-6 h-6  ${
                           selectedcolor === color
                             ? "border-gray-100"
@@ -178,8 +179,8 @@ const Slug = (products, variants) => {
                   <span className="mr-3">Size</span>
                   <div className="relative">
                     <select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
-                      {sizes.map((size) => (
-                        <option>{size}</option>
+                      {sizes.map((size, index) => (
+                        <option key={index}>{size}</option>
                       ))}
                       {/*
                       <option>M</option>
@@ -281,23 +282,33 @@ const Slug = (products, variants) => {
 
 export const getServerSideProps = async (context: any) => {
   if (!mongoose.connections[0].readyState) {
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI as string);
   }
-  const products = await Product.findOne({ slug: context.query.slug });
-  let variants = await Product.find({ title: products.title });
-  let colorSizeSlug = {}; //{red:{xl:{slug:"any name"}}}
+
+  const product = await Product.findOne({ slug: context.query.slug });
+  const variants = await Product.find({ title: product.title });
+
+  let colorSizeSlug: {
+    [color: string]: {
+      [size: string]: {
+        slug: string;
+      };
+    };
+  } = {};
+
   for (let item of variants) {
-    if (Object.keys(colorSizeSlug).includes(item.color)) {
+    if (colorSizeSlug[item.color]) {
       colorSizeSlug[item.color][item.size] = { slug: item.slug };
     } else {
-      colorSizeSlug[item.color] = {};
-      colorSizeSlug[item.color][item.size] = { slug: item.slug };
+      colorSizeSlug[item.color] = {
+        [item.size]: { slug: item.slug },
+      };
     }
   }
 
   return {
     props: {
-      product: JSON.parse(JSON.stringify(products)),
+      product: JSON.parse(JSON.stringify(product)),
       variants: JSON.parse(JSON.stringify(colorSizeSlug)),
     },
   };
