@@ -3,11 +3,12 @@ import { useRouter } from "next/router";
 import mongoose from "mongoose";
 import Product from "@/models/Product";
 
-const Slug = (products: any, variants: any) => {
-  console.log(products, variants);
-  let colors = Object.keys(products.variants);
+const Slug = (props: any) => {
+  let { product, variants, addToCart } = props;
+  console.log(props);
+  let colors = Object.keys(variants);
   let [selectedcolor, setSelectedcolor] = useState(colors[0]);
-  let sizes = Object.keys(products?.variants?.[selectedcolor]);
+  let sizes = Object.keys(variants?.[selectedcolor]);
   console.log(sizes);
   const [pin, setPin]: any = useState();
   const [service, setService]: any = useState();
@@ -35,14 +36,14 @@ const Slug = (products: any, variants: any) => {
             <img
               alt="ecommerce"
               className="m-auto lg:w-1/2 w-full lg:h-96 object-contain object-center rounded"
-              src={products.product.img}
+              src={product.img}
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                {products.product.title}
+                {product.title}
               </h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                {products.product.desc}
+                {product.desc}
               </h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
@@ -205,9 +206,22 @@ const Slug = (products: any, variants: any) => {
               </div>
               <div className="flex  ">
                 <span className="title-font font-medium text-2xl text-gray-900">
-                  ₹{products.product.price}
+                  ₹{product.price}
                 </span>
-                <button className="flex ml-12 md:ml-16 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                <button
+                  onClick={() => {
+                    addToCart(
+                      slug,
+                      1,
+                      product.price,
+                      product.title,
+                      "s",
+                      selectedcolor,
+                      product.img
+                    );
+                  }}
+                  className="flex ml-12 md:ml-16 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                >
                   Add to Cart
                 </button>
                 <button className=" rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
