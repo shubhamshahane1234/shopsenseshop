@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const SignUp = () => {
   return (
@@ -59,12 +60,12 @@ const SignUp = () => {
               </div>
 
               <div className="text-right mt-2">
-                <a
+                <Link
                   href="/ForgotPassword"
                   className="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700"
                 >
                   Forgot Password?
-                </a>
+                </Link>
               </div>
 
               <button
@@ -90,12 +91,12 @@ const SignUp = () => {
 
             <p className="mt-8">
               Already account?{" "}
-              <a
+              <Link
                 href="/Login"
                 className="text-blue-500 hover:text-blue-700 font-semibold"
               >
                 Login
-              </a>
+              </Link>
             </p>
           </div>
         </div>
