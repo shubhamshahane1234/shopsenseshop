@@ -26,13 +26,16 @@ const Login = () => {
     e.preventDefault();
     try {
       let bodyData = { email, password };
-      const response = await fetch("http://localhost:3000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(bodyData),
-      });
+      const response = await fetch(
+        "https://shopsenseshop-x1mg.vercel.app/api/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bodyData),
+        }
+      );
       const res = await response.json();
       localStorage.setItem("token", JSON.stringify(res.token));
       console.log(res);

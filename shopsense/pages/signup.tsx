@@ -19,13 +19,16 @@ const SignUp = () => {
     e.preventDefault();
     try {
       let bodyData = { name, email, password };
-      const response = await fetch("http://localhost:3000/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(bodyData),
-      });
+      const response = await fetch(
+        "https://shopsenseshop-x1mg.vercel.app/api/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bodyData),
+        }
+      );
       const res = await response.json();
       console.log(res);
       setName("");
