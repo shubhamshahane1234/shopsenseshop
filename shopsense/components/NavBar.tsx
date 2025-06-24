@@ -19,28 +19,25 @@ const NavBar = ({ logout, user }: any) => {
             href={"/"}
             className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-            </svg>
-            <span className="ml-3 text-xl">Shop Sense</span>
+            <img src="/shopsensenav.png" width={80} className="" />
+            <h1 className="ml-3 text-xl mr-0">
+              Shop<span className=" text-xl text-[#528689]">sense</span>{" "}
+            </h1>
           </Link>
           <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-            <Link href="/Tshirts" className="mr-5 hover:text-gray-900">
+            <Link
+              href="/Tshirts"
+              className="mr-5 hover:text-gray-900 font-bold"
+            >
               T-Shirts
             </Link>
-            <Link href="/Mugs" className="mr-5 hover:text-gray-900">
+            <Link href="/Mugs" className="mr-5 hover:text-gray-900 font-bold">
               Mugs
             </Link>
-            <Link href="/Hoodies" className="mr-5 hover:text-gray-900">
+            <Link
+              href="/Hoodies"
+              className="mr-5 hover:text-gray-900 font-bold"
+            >
               Hoodies
             </Link>
             {/* <a className="mr-5 hover:text-gray-900">Sweaters</a> */}
@@ -79,7 +76,7 @@ const NavBar = ({ logout, user }: any) => {
           {dropdown && (
             <>
               <div
-                className="bg-white shadow-md absolute right-[50vw] top-36 md:right-[10vw] md:top-12  rounded-md px-[2vw] w-[clamp(100px,10%,10vw)]"
+                className="bg-white shadow-md absolute right-[50vw] top-36 md:right-[9vw] md:top-12  rounded-md px-[2vw] w-[clamp(100px,10%,10vw)]"
                 onMouseEnter={() => setdropdown(true)}
                 onMouseLeave={() => setdropdown(false)}
               >

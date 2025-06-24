@@ -16,7 +16,7 @@ const Slug = (props: any) => {
   const router = useRouter();
   const { slug } = router.query;
   const checkServiceability = async () => {
-    let pins = await fetch("https://shopsenseshop-x1mg.vercel.app/api/pincode");
+    let pins = await fetch("http://localhost:3000/api/pincode");
     let pinsJson = await pins.json();
     if (pinsJson.includes(parseInt(pin))) {
       setService(true);
