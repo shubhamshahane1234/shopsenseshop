@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const router = useRouter();
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      router.push("/");
+    }
+  }, [router]);
 
   const handlesubmit = async (e: any) => {
     e.preventDefault();
@@ -41,8 +49,8 @@ const SignUp = () => {
           />
         </div>
 
-        <div
-          className="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
+        <div //md:mx-0
+          className="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto  md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
         flex items-center justify-center"
         >
           <div className="w-full h-100">
@@ -135,7 +143,7 @@ const SignUp = () => {
             <p className="mt-8">
               Already account?{" "}
               <Link
-                href="/Login"
+                href="/login"
                 className="text-blue-500 hover:text-blue-700 font-semibold"
               >
                 Login

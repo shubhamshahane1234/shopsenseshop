@@ -1,9 +1,16 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoHeartOutline } from "react-icons/io5";
+import { CgProfile } from "react-icons/cg";
 
-const NavBar = () => {
+// type MyComponentProps = {
+//   user: any; // Use correct type instead of any
+// };
+const NavBar = ({ logout, user }: any) => {
+  const [dropdown, setdropdown] = useState(false);
+  // console.log(user);
+
   return (
     <div className="shadow-lg">
       <nav>
@@ -39,13 +46,69 @@ const NavBar = () => {
             {/* <a className="mr-5 hover:text-gray-900">Sweaters</a> */}
           </nav>
           <div className="inline-flex items-center cursor-pointer  space-x-2 border-0 py-1 px-3 text-2xl  rounded mt-4 md:mt-0">
+            {user.value && (
+              <CgProfile
+                onMouseEnter={() => setdropdown(true)}
+                onMouseLeave={() => setdropdown(false)}
+              />
+            )}
+            {!user.value && (
+              <Link href="/login">
+                {/* <!-- From Uiverse.io by nathAd17 -->  */}
+                <button className="flex justify-center gap-2 items-center mx-auto shadow-xl text-base bg-gray-50 backdrop-blur-md lg:font-medium isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-[#4f46e5] hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-3 py-1.5 overflow-hidden border-2 rounded-full group">
+                  Login
+                  <svg
+                    className="w-5 h-5 justify-end group-hover:rotate-90 group-hover:bg-gray-50 text-gray-50 ease-linear duration-300 rounded-full border border-gray-700 group-hover:border-none p-1 rotate-45"
+                    viewBox="0 0 16 19"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"
+                      className="fill-gray-800 group-hover:fill-gray-800"
+                    ></path>
+                  </svg>
+                </button>
+              </Link>
+            )}
             <IoHeartOutline />
 
             <Link href="/ShoppingCart">
-              {" "}
               <AiOutlineShoppingCart />
             </Link>
           </div>
+          {dropdown && (
+            <>
+              <div
+                className="bg-white shadow-md absolute right-[50vw] top-36 md:right-[10vw] md:top-12  rounded-md px-[2vw] w-[clamp(100px,10%,10vw)]"
+                onMouseEnter={() => setdropdown(true)}
+                onMouseLeave={() => setdropdown(false)}
+              >
+                <ul>
+                  <Link href="/myaccount">
+                    <li className="py-1 hover:text-gray-500 cursor-pointer">
+                      My Account
+                    </li>
+                  </Link>
+                  <Link href="/orders">
+                    <li className="py-1 hover:text-gray-500 cursor-pointer">
+                      Orders
+                    </li>
+                  </Link>
+                  <Link href="/aboutus">
+                    <li className="py-1 hover:text-gray-500 cursor-pointer">
+                      About us
+                    </li>
+                  </Link>
+                  <li
+                    onClick={logout}
+                    className="py-1 hover:text-gray-500 cursor-pointer"
+                  >
+                    Logout
+                  </li>
+                </ul>
+              </div>
+            </>
+          )}
         </div>
       </nav>
     </div>

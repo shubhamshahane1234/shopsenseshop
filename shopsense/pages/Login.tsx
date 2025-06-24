@@ -1,8 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      router.push("/");
+    }
+  }, [router]);
+  let handleChange = (e: any) => {
+    if (e.target.name === "email") {
+      setEmail(e.target.value);
+    }
+    if (e.target.name === "password") {
+      setPassword(e.target.value);
+    }
+  };
+
+  const handlesubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      let bodyData = { email, password };
+      const response = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bodyData),
+      });
+      const res = await response.json();
+      localStorage.setItem("token", JSON.stringify(res.token));
+      console.log(res);
+      setEmail("");
+      setPassword("");
+      if (res.success) {
+        toast.success("Signin successfully");
+        setTimeout(() => {
+          router.push("http://localhost:3000");
+        }, 1000);
+      } else {
+        toast.error(res.error);
+      }
+    } catch (error: any) {
+      console.log(error);
+      toast.error("bad request");
+    }
+  };
+
   return (
     <div>
+      <ToastContainer />
       <section className="flex flex-col md:flex-row h-screen items-center">
         <div className="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
           <img
@@ -12,8 +64,9 @@ const Login = () => {
           />
         </div>
 
-        <div
-          className="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
+        <div //md:mx-0
+          className="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto 
+           md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
       flex items-center justify-center"
         >
           <div className="w-full h-100">
@@ -21,16 +74,20 @@ const Login = () => {
               Log in to your account
             </h1>
 
-            <form className="mt-6" action="#" method="POST">
+            <form className="mt-6">
               <div>
                 <label className="block text-gray-700">Email Address</label>
                 <input
                   type="email"
-                  name=""
+                  name="email"
                   id=""
+                  value={email}
                   placeholder="Enter Email Address"
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                   required
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
                 />
               </div>
 
@@ -38,12 +95,16 @@ const Login = () => {
                 <label className="block text-gray-700">Password</label>
                 <input
                   type="password"
-                  name=""
+                  name="password"
+                  value={password}
                   id=""
                   placeholder="Enter Password"
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
               focus:bg-white focus:outline-none"
                   required
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
                 />
               </div>
 
@@ -52,9 +113,9 @@ const Login = () => {
               </div>
 
               <button
-                type="submit"
                 className="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg
             px-4 py-3 mt-6"
+                onClick={handlesubmit}
               >
                 Log In
               </button>
@@ -110,6 +171,12 @@ const Login = () => {
               Need an account?
               {/* <a href="/SignUp" className="text-blue-500 hover:text-blue-700 font-semibold">Create an
             account</a> */}
+              <Link
+                href="/signup"
+                className="text-blue-500 hover:text-blue-700 font-semibold"
+              >
+                Create an account
+              </Link>
             </p>
           </div>
         </div>

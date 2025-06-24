@@ -5,10 +5,16 @@ import Footer from "@/components/Footer";
 import Nav from "@/components/Nav";
 import { useState, useEffect } from "react";
 import { Interface } from "readline";
+import { useRouter } from "next/router";
+import LoadingBar from "react-top-loading-bar";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [cart, setCart]: any = useState({});
   const [subTotal, setSubTotal] = useState(0);
+  const [user, setuser]: any = useState({ value: null });
+  const [key, setkey]: any = useState(null);
+  const [progress, setProgress] = useState(0);
+  const router = useRouter();
 
   const addToCart = (
     itemCode: string,
@@ -35,8 +41,18 @@ export default function App({ Component, pageProps }: AppProps) {
     saveCart({});
   };
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    // setkey(Math.random());
+    setuser({ value: null });
+  };
   useEffect(() => {
-    console.log("Hey I am a useEffect from _app.js");
+    router.events.on("routeChangeComplete", () => {
+      setProgress(100);
+    });
+    router.events.on("routeChangeStart", () => {
+      setProgress(40);
+    });
     try {
       if (localStorage.getItem("cart")) {
         let data: any = localStorage.getItem("cart");
@@ -46,7 +62,14 @@ export default function App({ Component, pageProps }: AppProps) {
       console.error(error);
       localStorage.clear();
     }
-  }, []);
+
+    const token = localStorage.getItem("token");
+    console.log(token, "token app");
+    if (token) {
+      setuser({ value: token });
+      setkey(Math.random());
+    }
+  }, [router.query, router.events]);
 
   const saveCart = (myCart: any) => {
     localStorage.setItem("cart", JSON.stringify(myCart));
@@ -79,7 +102,13 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <NavBar />
+      <LoadingBar
+        color="#4f46e5"
+        progress={progress}
+        waitingTime={400}
+        onLoaderFinished={() => setProgress(0)}
+      />
+      <NavBar key={key} user={user} logout={logout} />
       {/* <Nav/> */}
       <Component
         {...pageProps}

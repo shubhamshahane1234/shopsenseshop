@@ -217,11 +217,11 @@ const Hoodies = (products: any) => {
       <section className="text-gray-600 body-font bg-white">
         <div className="container h-auto px-5 py-24 mx-auto my-auto">
           <div className="flex flex-wrap   ">
-            {Object.keys(products.products).map((item: any) => {
+            {Object.keys(products.products).map((item: any, index) => {
               return (
                 <>
-                  {" "}
                   <Link
+                    key={index}
                     href={`/product/${products.products[item].slug}`}
                     className="h-70 p-4 w-full lg:w-1/5 md:w-1/2  shadow-md "
                   >
