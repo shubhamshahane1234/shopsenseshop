@@ -5,7 +5,6 @@ import mongoose from "mongoose";
 import Image from "next/image";
 
 const Tshirts = (products: any) => {
-  // console.log(">>>>>>", products);
   return (
     <div>
       <section className="text-gray-600 body-font bg-white">

@@ -19,22 +19,23 @@ const SignUp = () => {
     e.preventDefault();
     try {
       let bodyData = { name, email, password };
-      const response = await fetch("http://localhost:3000/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(bodyData),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST}/api/signup`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bodyData),
+        }
+      );
       const res = await response.json();
-      console.log(res);
+
       setName("");
       setEmail("");
       setPassword("");
       toast.success("Signup Successful");
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (

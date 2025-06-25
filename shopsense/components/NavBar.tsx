@@ -9,7 +9,6 @@ import { CgProfile } from "react-icons/cg";
 // };
 const NavBar = ({ logout, user }: any) => {
   const [dropdown, setdropdown] = useState(false);
-  // console.log(user);
 
   return (
     <div className="shadow-lg">
@@ -17,10 +16,15 @@ const NavBar = ({ logout, user }: any) => {
         <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
           <Link
             href={"/"}
-            className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
+            className="flex  font-medium items-center text-gray-900 mb-4 md:mb-0"
           >
-            <img src="/shopsensenav.png" width={80} className="" />
-            <h1 className="ml-3 text-xl mr-0">
+            <div className="w-[60px] h-[60px] flex justify-center items-center ">
+              <img
+                src="/shopsensenav.png"
+                className="w-[60px] h-[60px] mt-[5px]"
+              />
+            </div>
+            <h1 className="ml-1 text-xl mr-0">
               Shop<span className=" text-xl text-[#528689]">sense</span>{" "}
             </h1>
           </Link>

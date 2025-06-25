@@ -26,28 +26,30 @@ const Login = () => {
     e.preventDefault();
     try {
       let bodyData = { email, password };
-      const response = await fetch("http://localhost:3000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(bodyData),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST}/api/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bodyData),
+        }
+      );
       const res = await response.json();
       localStorage.setItem("token", JSON.stringify(res.token));
-      console.log(res);
+
       setEmail("");
       setPassword("");
       if (res.success) {
         toast.success("Signin successfully");
         setTimeout(() => {
-          router.push("http://localhost:3000");
+          router.push("/");
         }, 1000);
       } else {
         toast.error(res.error);
       }
     } catch (error: any) {
-      console.log(error);
       toast.error("bad request");
     }
   };

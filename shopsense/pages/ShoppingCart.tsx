@@ -3,7 +3,6 @@ import React from "react";
 
 const ShoppingCart = ({ cart, subTotal, removeFromCart, addToCart }: any) => {
   let cartitems = Object.keys(cart);
-  console.log(subTotal, cartitems.length, "total");
 
   return (
     <div>
@@ -20,7 +19,7 @@ const ShoppingCart = ({ cart, subTotal, removeFromCart, addToCart }: any) => {
             <div className="rounded-lg h-[auto] md:w-2/3">
               {cartitems?.map((itemCode: any) => {
                 let item: any = cart[itemCode];
-                console.log(item, "items");
+
                 let name = item?.name;
                 let size = item?.size;
                 let qty = item?.qty;

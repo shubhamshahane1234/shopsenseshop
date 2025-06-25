@@ -9,7 +9,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     let user = await User.findOne({
       email: req.body.email,
     });
-    let bytes = CryptoJS.AES.decrypt(user.password, "secret123");
+    let bytes = CryptoJS.AES.decrypt(user.password, process.env.AES_SECRET);
     let decryptedpassword = bytes.toString(CryptoJS.enc.Utf8);
 
     if (user) {
@@ -19,7 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       ) {
         var token = jwt.sign(
           { email: user.email, name: user.name },
-          "jwtsecret",
+          process.env.JWT_SECRET,
           { expiresIn: "2d" }
         );
         res.status(200).json({ success: true, token });

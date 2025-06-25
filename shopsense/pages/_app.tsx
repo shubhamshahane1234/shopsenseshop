@@ -33,7 +33,6 @@ export default function App({ Component, pageProps }: AppProps) {
     }
     setCart(newcart);
     saveCart(newcart);
-    console.log(cart);
   };
 
   const clearCart = () => {
@@ -45,6 +44,7 @@ export default function App({ Component, pageProps }: AppProps) {
     localStorage.removeItem("token");
     // setkey(Math.random());
     setuser({ value: null });
+    router.push("/");
   };
   useEffect(() => {
     router.events.on("routeChangeComplete", () => {
@@ -64,7 +64,7 @@ export default function App({ Component, pageProps }: AppProps) {
     }
 
     const token = localStorage.getItem("token");
-    console.log(token, "token app");
+
     if (token) {
       setuser({ value: token });
       setkey(Math.random());

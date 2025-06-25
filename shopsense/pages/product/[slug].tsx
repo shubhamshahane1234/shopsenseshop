@@ -6,17 +6,17 @@ import { ToastContainer, toast } from "react-toastify";
 
 const Slug = (props: any) => {
   let { product, variants, addToCart } = props;
-  console.log(props);
+
   let colors = Object.keys(variants);
   let [selectedcolor, setSelectedcolor] = useState(colors[0]);
   let sizes = Object.keys(variants?.[selectedcolor]);
-  console.log(sizes);
+
   const [pin, setPin]: any = useState();
   const [service, setService]: any = useState();
   const router = useRouter();
   const { slug } = router.query;
   const checkServiceability = async () => {
-    let pins = await fetch("http://localhost:3000/api/pincode");
+    let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
     let pinsJson = await pins.json();
     if (pinsJson.includes(parseInt(pin))) {
       setService(true);
@@ -168,7 +168,6 @@ const Slug = (props: any) => {
                         }`}
                         onClick={() => {
                           setSelectedcolor(color);
-                          console.log(color);
                         }}
                       ></button>
                     </>
