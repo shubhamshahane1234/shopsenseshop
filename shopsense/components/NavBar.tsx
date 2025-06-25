@@ -80,7 +80,7 @@ const NavBar = ({ logout, user }: any) => {
           {dropdown && (
             <>
               <div
-                className="bg-white shadow-md absolute right-[50vw] top-36 md:right-[9vw] md:top-12  rounded-md px-[2vw] w-[clamp(100px,10%,10vw)]"
+                className="bg-white shadow-md absolute right-[46vw] top-[24vh] md:right-[3vw] md:top-[9vh]  rounded-md px-[2vw] w-[clamp(100px,10%,10vw)]"
                 onMouseEnter={() => setdropdown(true)}
                 onMouseLeave={() => setdropdown(false)}
               >
