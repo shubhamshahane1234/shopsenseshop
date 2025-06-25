@@ -158,19 +158,17 @@ const Slug = (props: any) => {
                 <div className="flex">
                   <span className="mr-3">Color</span>
                   {colors?.map((color, index) => (
-                    <>
-                      <button
-                        key={index}
-                        className={`border-2  ml-1 bg-${color}-700 rounded-full w-6 h-6  ${
-                          selectedcolor === color
-                            ? "border-gray-100"
-                            : "border-gray-500"
-                        }`}
-                        onClick={() => {
-                          setSelectedcolor(color);
-                        }}
-                      ></button>
-                    </>
+                    <button
+                      key={index}
+                      className={`border-2  ml-1 bg-${color}-700 rounded-full w-6 h-6  ${
+                        selectedcolor === color
+                          ? "border-gray-100"
+                          : "border-gray-500"
+                      }`}
+                      onClick={() => {
+                        setSelectedcolor(color);
+                      }}
+                    ></button>
                   ))}
                   {/* <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:border-black"></button>
                   <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6  focus:border-black"></button>

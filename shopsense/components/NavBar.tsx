@@ -3,13 +3,15 @@ import React, { useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoHeartOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
+import { useRouter } from "next/router";
 
 // type MyComponentProps = {
 //   user: any; // Use correct type instead of any
 // };
 const NavBar = ({ logout, user }: any) => {
   const [dropdown, setdropdown] = useState(false);
-
+  const router = useRouter();
+  console.log(router.route);
   return (
     <div className="shadow-lg">
       <nav>
@@ -25,22 +27,31 @@ const NavBar = ({ logout, user }: any) => {
               />
             </div>
             <h1 className="ml-1 text-xl mr-0">
-              Shop<span className=" text-xl text-[#528689]">sense</span>{" "}
+              Shop<span className=" text-xl text-[#2c9499]">sense</span>{" "}
             </h1>
           </Link>
           <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
             <Link
               href="/Tshirts"
-              className="mr-5 hover:text-gray-900 font-bold"
+              className={`mr-5 hover:text-[#26686c] ${
+                router.route === "/Tshirts" && "text-[#26686c]"
+              } font-bold`}
             >
               T-Shirts
             </Link>
-            <Link href="/Mugs" className="mr-5 hover:text-gray-900 font-bold">
+            <Link
+              href="/Mugs"
+              className={`mr-5 hover:text-[#26686c] ${
+                router.route === "/Mugs" && "text-[#26686c]"
+              } font-bold`}
+            >
               Mugs
             </Link>
             <Link
               href="/Hoodies"
-              className="mr-5 hover:text-gray-900 font-bold"
+              className={`mr-5 hover:text-[#26686c] ${
+                router.route === "/Hoodies" && "text-[#26686c]"
+              } font-bold`}
             >
               Hoodies
             </Link>
@@ -48,10 +59,51 @@ const NavBar = ({ logout, user }: any) => {
           </nav>
           <div className="inline-flex items-center cursor-pointer  space-x-2 border-0 py-1 px-3 text-2xl  rounded mt-4 md:mt-0">
             {user.value && (
-              <CgProfile
-                onMouseEnter={() => setdropdown(true)}
-                onMouseLeave={() => setdropdown(false)}
-              />
+              <>
+                <div
+                  className="relative"
+                  onMouseEnter={() => setdropdown(true)}
+                  onMouseLeave={() => setdropdown(false)}
+                >
+                  <CgProfile
+                    onMouseEnter={() => setdropdown(true)}
+                    onMouseLeave={() => setdropdown(false)}
+                  />
+                  {dropdown && (
+                    <>
+                      <div
+                        className="bg-white shadow-md z-10 absolute right-0 top-full mt-0.4  w-[clamp(130px,15vw,180px)] md: rounded-md px-[2vw] "
+                        onMouseEnter={() => setdropdown(true)}
+                        onMouseLeave={() => setdropdown(false)}
+                      >
+                        <ul>
+                          <Link href="/myaccount">
+                            <li className="py-1 text-lg hover:text-gray-500 cursor-pointer">
+                              My Account
+                            </li>
+                          </Link>
+                          <Link href="/orders">
+                            <li className="py-1 text-lg hover:text-gray-500 cursor-pointer">
+                              Orders
+                            </li>
+                          </Link>
+                          <Link href="/aboutus">
+                            <li className="py-1 text-lg hover:text-gray-500 cursor-pointer">
+                              About us
+                            </li>
+                          </Link>
+                          <li
+                            onClick={logout}
+                            className="py-1 text-lg hover:text-gray-500 cursor-pointer"
+                          >
+                            Logout
+                          </li>
+                        </ul>
+                      </div>
+                    </>
+                  )}
+                </div>{" "}
+              </>
             )}
             {!user.value && (
               <Link href="/login">
@@ -71,45 +123,12 @@ const NavBar = ({ logout, user }: any) => {
                 </button>
               </Link>
             )}
-            <IoHeartOutline />
+            {/* <IoHeartOutline /> */}
 
             <Link href="/ShoppingCart">
               <AiOutlineShoppingCart />
             </Link>
           </div>
-          {dropdown && (
-            <>
-              <div
-                className="bg-white shadow-md absolute right-[46vw] top-[24vh] md:right-[3vw] md:top-[9vh]  rounded-md px-[2vw] w-[clamp(100px,10%,10vw)]"
-                onMouseEnter={() => setdropdown(true)}
-                onMouseLeave={() => setdropdown(false)}
-              >
-                <ul>
-                  <Link href="/myaccount">
-                    <li className="py-1 hover:text-gray-500 cursor-pointer">
-                      My Account
-                    </li>
-                  </Link>
-                  <Link href="/orders">
-                    <li className="py-1 hover:text-gray-500 cursor-pointer">
-                      Orders
-                    </li>
-                  </Link>
-                  <Link href="/aboutus">
-                    <li className="py-1 hover:text-gray-500 cursor-pointer">
-                      About us
-                    </li>
-                  </Link>
-                  <li
-                    onClick={logout}
-                    className="py-1 hover:text-gray-500 cursor-pointer"
-                  >
-                    Logout
-                  </li>
-                </ul>
-              </div>
-            </>
-          )}
         </div>
       </nav>
     </div>
