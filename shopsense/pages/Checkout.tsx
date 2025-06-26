@@ -102,7 +102,7 @@ const Checkout = ({ cart, subTotal }: any) => {
             </fieldset>
           </section>
         </div> */}
-        <button className="submit-button px-4 py-3 rounded-full  bg-blue-500  text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
+        <button className="submit-button px-4 py-3 rounded-full  bg-[#2c9499] hover:bg-[#61a3a6]  text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
           Pay ₹{subTotal}
         </button>
       </div>

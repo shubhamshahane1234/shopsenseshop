@@ -57,7 +57,7 @@ const Slug = (props: any) => {
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    className="w-4 h-4 text-indigo-500"
+                    className="w-4 h-4 text-[#2c9499]"
                     viewBox="0 0 24 24"
                   >
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
@@ -68,7 +68,7 @@ const Slug = (props: any) => {
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    className="w-4 h-4 text-indigo-500"
+                    className="w-4 h-4 text-[#2c9499]"
                     viewBox="0 0 24 24"
                   >
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
@@ -79,7 +79,7 @@ const Slug = (props: any) => {
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    className="w-4 h-4 text-indigo-500"
+                    className="w-4 h-4 text-[#2c9499]"
                     viewBox="0 0 24 24"
                   >
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
@@ -90,7 +90,7 @@ const Slug = (props: any) => {
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    className="w-4 h-4 text-indigo-500"
+                    className="w-4 h-4 text-[#2c9499]"
                     viewBox="0 0 24 24"
                   >
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
@@ -101,7 +101,7 @@ const Slug = (props: any) => {
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    className="w-4 h-4 text-indigo-500"
+                    className="w-4 h-4 text-[#2c9499]"
                     viewBox="0 0 24 24"
                   >
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
@@ -221,7 +221,7 @@ const Slug = (props: any) => {
                       product.img
                     );
                   }}
-                  className="flex ml-12 md:ml-16 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                  className="flex ml-12 md:ml-16 text-white bg-[#2c9499] hover:bg-[#61a3a6] border-0 py-2 px-6 focus:outline-none rounded"
                 >
                   Add to Cart
                 </button>
@@ -266,7 +266,7 @@ const Slug = (props: any) => {
 
                 <button
                   onClick={checkServiceability}
-                  className="flex  text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                  className="flex  text-white bg-[#2c9499] hover:bg-[#61a3a6] border-0 py-2 px-6 focus:outline-none  rounded"
                 >
                   Check
                 </button>

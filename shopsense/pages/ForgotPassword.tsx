@@ -5,9 +5,9 @@ const ForgotPassword = () => {
   return (
     <div>
       <section className="flex flex-col md:flex-row h-screen items-center">
-        <div className="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
+        <div className=" hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
           <img
-            src="https://source.unsplash.com/random"
+            src="https://plus.unsplash.com/premium_vector-1727541790617-3a3798ea6652?q=80&w=2196&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt=""
             className="w-full h-full object-cover"
           />
@@ -37,7 +37,7 @@ const ForgotPassword = () => {
 
               <button
                 type="submit"
-                className="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg
+                className="w-full block bg-[#2c9499] hover:bg-[#61a3a6] focus:bg-[#61a3a6] text-white font-semibold rounded-lg
               px-4 py-3 mt-6"
               >
                 Continue

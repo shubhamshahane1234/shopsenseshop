@@ -1,8 +1,15 @@
 import Link from "next/link";
-import React from "react";
-
+import React, { useEffect } from "react";
+import { useRouter } from "next/router";
 const ShoppingCart = ({ cart, subTotal, removeFromCart, addToCart }: any) => {
   let cartitems = Object.keys(cart);
+
+  const router = useRouter();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      router.push("/login");
+    }
+  }, [router]);
 
   return (
     <div>
@@ -170,19 +177,19 @@ const ShoppingCart = ({ cart, subTotal, removeFromCart, addToCart }: any) => {
               </div>
               <div className="flex justify-between">
                 <p className="text-gray-700">Shipping</p>
-                <p className="text-gray-700">₹4.99</p>
+                <p className="text-gray-700">Free</p>
               </div>
               <hr className="my-4" />
               <div className="flex justify-between">
                 <p className="text-lg font-bold">Total</p>
                 <div className="">
-                  <p className="mb-1 text-lg font-bold">₹134.98 </p>
+                  <p className="mb-1 text-lg font-bold">₹{subTotal}</p>
                   <p className="text-sm text-gray-700">including VAT</p>
                 </div>
               </div>
               <Link href={"/Checkout"}>
                 {" "}
-                <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+                <button className="mt-6 w-full rounded-md bg-[#2c9499] hover:bg-[#61a3a6] py-1.5 font-medium text-blue-50 ">
                   Check out
                 </button>
               </Link>
