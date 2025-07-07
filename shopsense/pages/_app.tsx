@@ -110,14 +110,20 @@ export default function App({ Component, pageProps }: AppProps) {
       />
       <NavBar key={key} user={user} logout={logout} />
       {/* <Nav/> */}
-      <Component
-        {...pageProps}
-        removeFromCart={removeFromCart}
-        clearCart={clearCart}
-        addToCart={addToCart}
-        cart={cart}
-        subTotal={subTotal}
-      />
+
+      <div className="mt-24">
+        {" "}
+        {/* This compensates for fixed NavBar height */}
+        <Component
+          {...pageProps}
+          removeFromCart={removeFromCart}
+          clearCart={clearCart}
+          addToCart={addToCart}
+          cart={cart}
+          subTotal={subTotal}
+        />
+      </div>
+
       <Footer />
     </>
   );
