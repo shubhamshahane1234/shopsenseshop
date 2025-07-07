@@ -13,7 +13,7 @@ const NavBar = ({ logout, user }: any) => {
   const router = useRouter();
   console.log(router.route);
   return (
-    <div className="shadow-lg">
+    <div className="shadow-lg fixed top-0 left-0 right-0 z-50 h-24 bg-slate-100">
       <nav>
         <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
           <Link
@@ -123,7 +123,6 @@ const NavBar = ({ logout, user }: any) => {
                 </button>
               </Link>
             )}
-            {/* <IoHeartOutline /> */}
 
             <Link href="/ShoppingCart">
               <AiOutlineShoppingCart />
