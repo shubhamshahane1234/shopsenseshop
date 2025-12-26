@@ -61,7 +61,7 @@ const Footer = () => {
               </h2>
               <nav className="list-none mb-10">
                 <li>
-                  <a className="text-gray-600 hover:text-gray-800">
+                  <a href="/" className="text-gray-600 hover:text-gray-800">
                     First Link
                   </a>
                 </li>

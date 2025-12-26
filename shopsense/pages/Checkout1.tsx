@@ -1,3 +1,6 @@
+// Paytm integration checkout page
+// other pages - pretranscation and post transaction
+
 import Head from "next/head";
 import Script from "next/script";
 import React from "react";

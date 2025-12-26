@@ -4,6 +4,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoHeartOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 // type MyComponentProps = {
 //   user: any; // Use correct type instead of any
@@ -11,7 +12,7 @@ import { useRouter } from "next/router";
 const NavBar = ({ logout, user }: any) => {
   const [dropdown, setdropdown] = useState(false);
   const router = useRouter();
-  console.log(router.route);
+  // console.log(router.route);
   return (
     <div className="shadow-lg fixed top-0 left-0 right-0 z-50 h-24 bg-slate-100">
       <nav>
@@ -21,9 +22,12 @@ const NavBar = ({ logout, user }: any) => {
             className="flex  font-medium items-center text-gray-900 mb-4 md:mb-0"
           >
             <div className="w-[60px] h-[60px] flex justify-center items-center ">
-              <img
+              <Image
                 src="/shopsensenav.png"
+                alt={"ShopSense Logo"}
                 className="w-[60px] h-[60px] mt-[5px]"
+                width={60}
+                height={60}
               />
             </div>
             <h1 className="ml-1 text-xl mr-0">
@@ -123,6 +127,10 @@ const NavBar = ({ logout, user }: any) => {
                 </button>
               </Link>
             )}
+            <Link href="/wishlist">
+              {" "}
+              <IoHeartOutline />{" "}
+            </Link>
 
             <Link href="/ShoppingCart">
               <AiOutlineShoppingCart />

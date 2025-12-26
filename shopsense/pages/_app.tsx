@@ -40,6 +40,14 @@ export default function App({ Component, pageProps }: AppProps) {
     saveCart({});
   };
 
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").then((res) => {
+        console.log("service worker registered");
+      });
+    }
+  }, []);
+
   const logout = () => {
     localStorage.removeItem("token");
     // setkey(Math.random());
