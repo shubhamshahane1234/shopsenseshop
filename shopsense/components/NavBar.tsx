@@ -6,27 +6,28 @@ import { CgProfile } from "react-icons/cg";
 import { useRouter } from "next/router";
 
 const NavBar = ({ logout, user }: any) => {
-  const [dropdown, setdropdown] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const router = useRouter();
+
+  const navItems = ["Tshirts", "Mugs", "Hoodies"];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-white/80 border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        {/* 🔥 Modern SHOPSENSE Logo */}
-        <Link href="/" className="text-2xl font-bold tracking-wide group">
+        {/* Logo */}
+        <Link href="/" className="text-2xl font-bold tracking-wide">
           <span className="text-gray-900">SHOP</span>
-          <span className="text-[#368286] group-hover:text-[#368286] transition duration-300">
-            SENSE
-          </span>
+          <span className="text-[#368286]">SENSE</span>
         </Link>
 
-        {/* Navigation Links */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-          {["Tshirts", "Mugs", "Hoodies"].map((item) => (
+          {navItems.map((item) => (
             <Link
               key={item}
               href={`/${item}`}
-              className={`relative hover:text-[#368286] transition duration-300 ${
+              className={`hover:text-[#368286] transition duration-300 ${
                 router.route === `/${item}` ? "text-[#368286]" : "text-gray-700"
               }`}
             >
@@ -37,12 +38,20 @@ const NavBar = ({ logout, user }: any) => {
 
         {/* Right Section */}
         <div className="flex items-center gap-6 text-xl text-gray-700">
+          {/* Mobile Hamburger */}
+          <button
+            className="md:hidden text-2xl"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            ☰
+          </button>
+
           {/* Profile */}
           {user?.value && (
             <div
-              className="relative"
-              onMouseEnter={() => setdropdown(true)}
-              onMouseLeave={() => setdropdown(false)}
+              className="relative hidden md:block"
+              onMouseEnter={() => setDropdown(true)}
+              onMouseLeave={() => setDropdown(false)}
             >
               <CgProfile className="cursor-pointer hover:text-emerald-500 transition" />
 
@@ -76,38 +85,79 @@ const NavBar = ({ logout, user }: any) => {
             </div>
           )}
 
-          {/* Login Button */}
-          {!user.value && (
-            <Link href="/login">
-              {/* <!-- From Uiverse.io by nathAd17 -->  */}
-              <button className="flex justify-center gap-2 items-center mx-auto shadow-xl text-base bg-gray-50 backdrop-blur-md lg:font-medium isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-[#63b0b4] hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-3 py-1.5 overflow-hidden border-2 rounded-full group">
-                Login
-                <svg
-                  className="w-5 h-5 justify-end group-hover:rotate-90 group-hover:bg-gray-50 text-gray-50 ease-linear duration-300 rounded-full border border-gray-700 group-hover:border-none p-1 rotate-45"
-                  viewBox="0 0 16 19"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"
-                    className="fill-gray-800 group-hover:fill-gray-800"
-                  ></path>
-                </svg>
-              </button>
+          {/* Login */}
+          {!user?.value && (
+            <Link
+              href="/login"
+              className="hidden md:block px-4 py-2 rounded-full bg-[#368286] text-white text-sm font-medium hover:bg-[#2f6f72] transition"
+            >
+              Login
             </Link>
           )}
 
           {/* Icons */}
-          <Link href="/wishlist">
+          <Link href="/wishlist" className="hidden md:block">
             <IoHeartOutline className="hover:text-emerald-500 transition cursor-pointer" />
           </Link>
 
-          <Link href="/ShoppingCart">
+          <Link href="/ShoppingCart" className="hidden md:block">
             <AiOutlineShoppingCart className="hover:text-emerald-500 transition cursor-pointer" />
           </Link>
         </div>
       </div>
 
-      {/* Dropdown Style */}
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <div className="md:hidden bg-white border-t border-gray-200 px-6 py-6 space-y-4 shadow-lg">
+          {navItems.map((item) => (
+            <Link
+              key={item}
+              href={`/${item}`}
+              onClick={() => setMobileOpen(false)}
+              className="block text-gray-700 hover:text-[#368286] font-medium"
+            >
+              {item}
+            </Link>
+          ))}
+
+          <div className="pt-4 border-t border-gray-200 space-y-4">
+            {user?.value ? (
+              <>
+                <Link href="/myaccount" className="block text-gray-700">
+                  My Account
+                </Link>
+                <Link href="/orders" className="block text-gray-700">
+                  Orders
+                </Link>
+                <button
+                  onClick={logout}
+                  className="block text-left text-gray-700"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                className="block bg-[#368286] text-white text-center py-2 rounded-lg"
+              >
+                Login
+              </Link>
+            )}
+
+            <div className="flex gap-6 pt-2 text-xl">
+              <Link href="/wishlist">
+                <IoHeartOutline />
+              </Link>
+              <Link href="/ShoppingCart">
+                <AiOutlineShoppingCart />
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Dropdown Styling */}
       <style jsx>{`
         .dropdown-item {
           display: block;
