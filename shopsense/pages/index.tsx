@@ -9,8 +9,7 @@ export default function Home() {
       {/* HERO SECTION */}
       <section className="">
         {/* <div className="absolute inset-0 bg-black/50" /> */}
-        <div style={{ height: "500px" }}>
-          {/* <img src="/shopsense_banner.jpg"/> */}
+        <div className="relative w-full h-[40vh] sm:h-[70vh] lg:h-[85vh]">
           <Image
             src="/shopsense_banner.jpg"
             alt="Banner"
