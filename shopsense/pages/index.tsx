@@ -7,19 +7,18 @@ export default function Home() {
   return (
     <main className={`${inter.className}`}>
       {/* HERO SECTION */}
-      <section className="">
-        {/* <div className="absolute inset-0 bg-black/50" /> */}
-        <div className="relative w-full h-[40vh] sm:h-[70vh] lg:h-[85vh]">
-          <Image
-            src="/shopsense_banner.jpg"
-            alt="Banner"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-        </div>
-      </section>
+
+      {/* <div className="absolute inset-0 bg-black/50" /> */}
+      <div className="relative w-full h-[50vh] sm:h-[70vh] lg:h-[86vh]">
+        <Image
+          src="/shopsense_banner.jpg"
+          alt="Banner"
+          fill
+          priority
+          sizes="60vw"
+          className="lg:object-cover"
+        />
+      </div>
 
       {/* FEATURE SECTION */}
       <section className="py-24 bg-gray-50">
